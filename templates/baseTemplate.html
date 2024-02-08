@@ -1,43 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}{% endblock %} - Stefans Webshop</title>
     <link
       href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700"
-      rel="stylesheet"
-    />
+      rel="stylesheet" />
     <link
       type="text/css"
       rel="stylesheet"
-      href="{{ url_for('static',filename='css/bootstrap.min.css') }}"
-    />
+      href="{{ url_for('static',filename='css/bootstrap.min.css') }}" />
     <link
       type="text/css"
       rel="stylesheet"
-      href="{{ url_for('static',filename='css/slick.css') }}"
-    />
+      href="{{ url_for('static',filename='css/slick.css') }}" />
     <link
       type="text/css"
       rel="stylesheet"
-      href="{{ url_for('static',filename='css/slick-theme.css') }}"
-    />
+      href="{{ url_for('static',filename='css/slick-theme.css') }}" />
     <link
       type="text/css"
       rel="stylesheet"
-      href="{{ url_for('static',filename='css/nouislider.min.css') }}"
-    />
+      href="{{ url_for('static',filename='css/nouislider.min.css') }}" />
     <link
       rel="stylesheet"
-      href="{{ url_for('static',filename='css/font-awesome.min.css') }}"
-    />
+      href="{{ url_for('static',filename='css/font-awesome.min.css') }}" />
     <link
       type="text/css"
       rel="stylesheet"
-      href="{{ url_for('static',filename='css/style.css') }}"
-    />
+      href="{{ url_for('static',filename='css/style.css') }}" />
   </head>
   <body>
     <!-- HEADER -->
@@ -74,8 +66,7 @@
                 <a href="#" class="logo">
                   <img
                     src="{{ url_for('static', filename='img/logo.png') }}"
-                    alt=""
-                  />
+                    alt="" />
                 </a>
               </div>
             </div>
@@ -107,8 +98,7 @@
                   <a
                     class="dropdown-toggle"
                     data-toggle="dropdown"
-                    aria-expanded="true"
-                  >
+                    aria-expanded="true">
                     <i class="fa fa-shopping-cart"></i>
                     <span>Your Cart</span>
                     <div class="qty">3</div>
@@ -119,8 +109,7 @@
                         <div class="product-img">
                           <img
                             src="{{ url_for('static', filename='img/product01.png')}}"
-                            alt=""
-                          />
+                            alt="" />
                         </div>
                         <div class="product-body">
                           <h3 class="product-name">
@@ -139,8 +128,7 @@
                         <div class="product-img">
                           <img
                             src="{{ url_for('static', filename='img/product02.png')}}"
-                            alt=""
-                          />
+                            alt="" />
                         </div>
                         <div class="product-body">
                           <h3 class="product-name">
@@ -218,15 +206,13 @@
           <div class="col-md-12">
             <div class="newsletter">
               <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-              <form>
-                <input
-                  class="input"
-                  type="email"
-                  placeholder="Enter Your Email"
-                />
+              <form action="/newsletter" method="post" id="newsletter-form">
+                {{ form.csrf_token }} {{ form.newsletter_email(class_="input",
+                placeholder="Enter Your Email") }}
                 <button class="newsletter-btn">
                   <i class="fa fa-envelope"></i> Subscribe
                 </button>
+                <i id="error-msg" class="text-danger"></i>
               </form>
               <ul class="newsletter-follow">
                 <li>
@@ -379,14 +365,50 @@
       <!-- /bottom footer -->
     </footer>
     <!-- /FOOTER -->
+    <!-- Newsletter Modal -->
+    <!-- Modal -->
+    <div
+      class="modal fade d-flex"
+      id="newsletterModalPopup"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="newsletterModalPopupTitle"
+      aria-hidden="true">
+      <div class="row justify-content-center">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h4 class="text-center">Tack för att du prenumererar!</h4>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-dismiss="modal">
+                Stäng
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Newsletter Modal -->
     <!-- jQuery Plugins -->
     <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
-    <!-- <script src="{{ url_for('static',filename='js/slick.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='js/nouislider.min.js') }}"></script> -->
+    <script src="{{ url_for('static',filename='js/slick.min.js') }}"></script>
     <script src="{{ url_for('static',filename='js/jquery.zoom.min.js') }}"></script>
     <script src="{{ url_for('static',filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/newsletter.js') }}"></script>
     {% block scripts %}{% endblock %}
   </body>
 </html>
-s
