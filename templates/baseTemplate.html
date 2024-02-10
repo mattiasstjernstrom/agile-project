@@ -218,16 +218,23 @@
           <div class="col-md-12">
             <div class="newsletter">
               <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-              <form>
-                <input
+              <form method="POST" action="/" name="form">
+                  {{ form.csrf_token }}
+                  {{ form.email.label(class="") }}
+                  {{ form.email(class="input") }}
+
+                <!--input
                   class="input"
-                  type="email"
+                  type="email" 
+                  name="email"
                   placeholder="Enter Your Email"
-                />
-                <button class="newsletter-btn">
+                /-->
+                <button class="newsletter-btn" type="submit">
                   <i class="fa fa-envelope"></i> Subscribe
                 </button>
               </form>
+              {{ errorMessage }}
+              
               <ul class="newsletter-follow">
                 <li>
                   <a href="#"><i class="fa fa-facebook"></i></a>
@@ -389,4 +396,3 @@
     {% block scripts %}{% endblock %}
   </body>
 </html>
-s

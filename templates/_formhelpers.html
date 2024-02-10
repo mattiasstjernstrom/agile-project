@@ -5,6 +5,7 @@
     {{ field(class="form-control")  }}
     <!-- <label for="nf-email" class=" form-control-label">Email</label>
     <input type="email" id="nf-email" name="nf-email" placeholder="Enter Email.." class="form-control"> -->
+    
     {% for error in field.errors %}
     <span class="help-block">
         {{error}}</span>

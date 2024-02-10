@@ -1,4 +1,7 @@
+from enum import unique
+from wsgiref.validate import validator
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Nullable
 import barnum
 from datetime import datetime
 from flask_security import Security, SQLAlchemyUserDatastore, auth_required, hash_password
@@ -37,7 +40,11 @@ class Product(db.Model):
     ReorderLevel = db.Column(db.Integer, unique=False, nullable=False)
     Discontinued = db.Column(db.Boolean, unique=False, nullable=False)
 
-
+# Email för prenumeranter av nyhetsbrev
+class NewsletterEmails(db.Model):
+    __tablename__ = "NewsletterEmails"
+    EmailID = db.Column(db.Integer, primary_key=True)
+    Email = db.Column(db.String(255), unique=True, nullable=False)
 
 
 def seedData(app):
