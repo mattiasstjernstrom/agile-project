@@ -206,16 +206,20 @@
           <div class="col-md-12">
             <div class="newsletter">
               <p>Sign Up for the <strong>NEWSLETTER</strong></p>
+
               <form action="/newsletter" method="post" id="newsletter-form">
                 {{ form.csrf_token }} {{ form.newsletter_email(class_="input",
                 placeholder="Enter Your Email") }}
                 <button class="newsletter-btn">
+
                   <i class="fa fa-envelope"></i> Subscribe
                 </button>
                 <div style="padding: 10px">
                   <i id="error-msg" class="text-danger p-4"></i>
                 </div>
               </form>
+              {{ errorMessage }}
+              
               <ul class="newsletter-follow">
                 <li>
                   <a href="#"><i class="fa fa-facebook"></i></a>
@@ -415,3 +419,4 @@
     {% block scripts %}{% endblock %}
   </body>
 </html>
+

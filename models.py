@@ -1,3 +1,5 @@
+from enum import unique
+from wsgiref.validate import validator
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import (
     Security,
@@ -46,6 +48,13 @@ class Product(db.Model):
     UnitsOnOrder = db.Column(db.Integer, unique=False, nullable=False)
     ReorderLevel = db.Column(db.Integer, unique=False, nullable=False)
     Discontinued = db.Column(db.Boolean, unique=False, nullable=False)
+
+
+# Email för prenumeranter av nyhetsbrev
+class NewsletterEmails(db.Model):
+    __tablename__ = "NewsletterEmails"
+    EmailID = db.Column(db.Integer, primary_key=True)
+    Email = db.Column(db.String(255), unique=True, nullable=False)
 
 
 def seedData(app):
