@@ -25,6 +25,7 @@ def index() -> str:
     trendingProducts = getTrendingProducts()
 
     form = NewsletterForm(request.form)
+
     return render_template(
         "products/index.html",
         trendingCategories=trendingCategories,
