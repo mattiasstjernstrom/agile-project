@@ -1,11 +1,9 @@
 
 class ConfigDebug():
-    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:KR7c5o6-f9RHYRjpP@0.0.0.0:3306/grupparbete'    # File-based SQL database
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:password@localhost/grupparbete'    # File-based SQL database
     SECRET_KEY = 'SDFA11#'
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:B9TbY2qf6F6V-hGHW@0.0.0.0:3306/Bank'
-# Hemma KR7c5o6-f9RHYRjpP
-# Laptop B9TbY2qf6F6V-hGHW
+
 
  # Flask-Mail SMTP server settings
     MAIL_SERVER = '127.0.0.1'
