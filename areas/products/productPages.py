@@ -91,15 +91,3 @@ def newsletter() -> str:
         # Return a success message as a JSON response to javascript
         return jsonify("Form Submitted Successfully"), 200
     return form.errors, 400
-
-
-@productBluePrint.route("/category/<id>")
-def category(id) -> str:
-    category = getCategory(id)
-    return render_template("products/category.html", category=category)
-
-
-@productBluePrint.route("/product/<id>")
-def product(id) -> str:
-    product = getProduct(id)
-    return render_template("products/product.html", product=product)
