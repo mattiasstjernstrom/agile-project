@@ -28,18 +28,18 @@ def index() -> str:
 @productBluePrint.route("/newsletter", methods=["GET", "POST"])
 def newsletter() -> str:
     if request.method == "GET":
-        # TODO: Logic to handle GET request
 
         return "Method Not Allowed", 405
     form = NewsletterForm(request.form)
     # TODO: Handler for user already exists, return
 
-    #! This is a placeholder for the user check
+    #! This is a placeholder for the user check, debugging purposes only
     # Return true if the user exists
     user_exist = False
 
     if user_exist == True and form.validate_on_submit():
-        return "User already exists", 409
+
+        return "Email is already subscribed to the newsletter", 409
     if form.validate_on_submit():
         # TODO: Save the email to the database
 

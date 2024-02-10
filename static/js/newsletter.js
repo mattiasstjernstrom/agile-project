@@ -2,6 +2,7 @@ const form = document.getElementById("newsletter-form");
 const newsletterEmail = document.getElementById("newsletter_email");
 const btn = form.querySelector("button");
 const errorMsg = document.getElementById("error-msg");
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   const newsletterForm = new FormData(form);
@@ -20,7 +21,8 @@ form.addEventListener("submit", function (e) {
         throw new Error("Incorrect input!");
         console.log("Incorrect input!");
       } else if (response.status === 409) {
-        errorMsg.innerHTML = "Email already exists!";
+        errorMsg.innerHTML =
+          newsletterEmail.value + "  is already subscribed to our newsletter!";
         newsletterEmail.style.border = "1px solid red";
         throw new Error("Email already exists!");
         console.log("Email already exists!");
@@ -48,4 +50,7 @@ form.addEventListener("submit", function (e) {
 
 function newsletterModal() {
   $("#newsletterModalPopup").modal({ show: true });
+  const modalText = document.getElementById("newsletterModalPopupText");
+  modalText.innerHTML = `Your email <strong>${newsletterEmail.value}</strong> has been successfully subscribed to our newsletter!`;
+  form.reset();
 }
