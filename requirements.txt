@@ -47,6 +47,21 @@ flask-wtf==1.2.1
     #   flask-security-too
 future==0.18.3
     # via barnum
+setuptools==58.0.4
+    # via
+    #   -r ./requirements.in
+    #   alembic
+    #   flask
+    #   flask-login
+    #   flask-migrate
+    #   flask-principal
+    #   flask-security-too
+    #   flask-sqlalchemy
+    #   flask-wtf
+    #   mysql-connector-python
+    #   passlib
+    #   sqlalchemy
+    #   wtforms
 greenlet==3.0.3
     # via sqlalchemy
 idna==3.6
