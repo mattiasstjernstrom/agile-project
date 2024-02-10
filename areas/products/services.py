@@ -1,31 +1,42 @@
+from flask import jsonify
 from models import db, Category, Product, NewsletterEmails
-from forms import NewsletterForm
+
 
 def getTrendingCategories():
-    return Category.query.order_by(Category.CategoryID.desc()).paginate(page=1,per_page=4,error_out=False).items
+    return (
+        Category.query.order_by(Category.CategoryID.desc())
+        .paginate(page=1, per_page=4, error_out=False)
+        .items
+    )
+
 
 def getCategory(id):
-    return Category.query.filter(Category.CategoryID ==id).first()
+    return Category.query.filter(Category.CategoryID == id).first()
+
 
 def getProduct(id):
-    return Product.query.filter(Product.ProductID ==id).first()
+    return Product.query.filter(Product.ProductID == id).first()
+
 
 def getTrendingProducts():
-    return Product.query.order_by(Product.ProductID.desc()).paginate(page=1,per_page=8,error_out=False).items
+    return (
+        Product.query.order_by(Product.ProductID.desc())
+        .paginate(page=1, per_page=8, error_out=False)
+        .items
+    )
 
 
-def newSubscriber():
-    form = NewsletterForm()
-    errorMessage = ""
+def newSubscriber(form):
     if form.validate():
-        if NewsletterEmails.query.filter_by(Email = form.email.data).first() == None:
-            new_sub = NewsletterEmails(Email = form.email.data)
+        if (
+            NewsletterEmails.query.filter_by(Email=form.newsletter_email.data).first()
+            == None
+        ):
+            new_sub = NewsletterEmails(Email=form.newsletter_email.data)
             db.session.add(new_sub)
             db.session.commit()
-            return errorMessage
+            return jsonify("Form Submitted Successfully"), 200
         else:
-            errorMessage = 'Email finns redan'
-            return errorMessage
+            return "Email is already subscribed to the newsletter", 409
     else:
-        errorMessage = 'Emailfältet tomt!'
-        return errorMessage
+        return form.errors, 400
