@@ -6,8 +6,6 @@
 #
 alembic==1.13.1
     # via flask-migrate
-barnum==0.5.1
-    # via -r ./requirements.in
 blinker==1.7.0
     # via
     #   flask
