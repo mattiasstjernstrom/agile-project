@@ -9,7 +9,7 @@ from models import NewsletterEmails, db
 adminBluePrint = Blueprint("admin", __name__)
 
 
-@adminBluePrint.route("/admin")  # Tar med mig NewsletterEmails till admin page
+@adminBluePrint.route("/admin")
 def admin():
     return render_template("admin.html", values=NewsletterEmails.query.all())
 
