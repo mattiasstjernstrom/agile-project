@@ -207,8 +207,15 @@
         <div id="responsive-nav">
           <!-- NAV -->
           <ul class="main-nav nav navbar-nav">
-            <li><a href="#">Startpage</a></li>
-            <li><a href="{{ url_for('product.index') }}">Shop</a></li>
+            <li><a href="{{ url_for('product.index') }}">Start</a></li>
+            {% for Categories in all_categories %}
+            <li>
+              <a
+                href="{{ url_for('product.category', id=Categories.CategoryID) }}"
+                >{{ Categories.CategoryName }}</a
+              >
+              {% endfor %}
+            </li>
           </ul>
 
           <!-- /NAV -->

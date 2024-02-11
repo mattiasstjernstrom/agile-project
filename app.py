@@ -9,11 +9,8 @@ from areas.site.sitePages import siteBluePrint
 from areas.products import productBluePrint
 from areas.admin import adminBluePrint
 from areas.error import errorHandlersBluePrint
-from models import db, seedData, user_datastore
-from areas.products.services import (
-    checkSubscriber,
-)
-
+from areas.products.services import checkSubscriber
+from models import db, seedData, user_datastore, Category
 
 app = Flask(__name__)
 app.config.from_object("config.ConfigDebug")
@@ -38,7 +35,14 @@ def processor():
     is_subscribed_to_newsletter = False
     if current_user.is_authenticated and checkSubscriber(current_user.email):
         is_subscribed_to_newsletter = True
-    return dict(is_subscribed_to_newsletter=is_subscribed_to_newsletter)
+
+    all_categories = Category().query.all()
+    print(all_categories)
+
+    return dict(
+        is_subscribed_to_newsletter=is_subscribed_to_newsletter,
+        all_categories=all_categories,
+    )
 
 
 if __name__ == "__main__":
