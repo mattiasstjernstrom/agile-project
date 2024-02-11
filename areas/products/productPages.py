@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request
-from flask_security import Security
 
 from forms import NewsletterForm
 from .services import (
@@ -37,9 +36,7 @@ def index() -> str:
 @productBluePrint.route("/category/<id>", methods=["GET", "POST"])
 def category(id) -> str:
 
-    form = 
-    
-    ()
+    form = NewsletterForm(request.form)
     errorMessage = ""
     if request.method == "POST":
         errorMessage = newSubscriber()
