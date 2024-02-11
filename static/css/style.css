@@ -2336,4 +2336,30 @@ textarea.input {
 .modal-footer {
   border-top: none !important;
 }
+
+.form-group input:not([type="checkbox"]) {
+  width: 400px !important;
+  border: 1px solid #444 !important;
+  border-radius: 5px !important;
+  padding: 10px 15px !important;
+  margin-bottom: 20px !important;
+}
+
+.form-group input[type="submit"] {
+  width: 200px !important;
+  background: #d10024 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important;
+  padding: 10px 15px !important;
+  margin-bottom: 20px !important;
+}
+
+.form-group label {
+  font-size: 18px !important;
+  width: 400px !important;
+  display: block !important;
+  cursor: pointer !important;
+}
+
 /* /Overrides bootstrap */

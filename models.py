@@ -1,9 +1,6 @@
-from wsgiref.validate import validator
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import (
-    Security,
     SQLAlchemyUserDatastore,
-    auth_required,
     hash_password,
 )
 from flask_security.models import fsqla_v3 as fsqla
@@ -55,32 +52,31 @@ class NewsletterEmails(db.Model):
     Email = db.Column(db.String(255), unique=True, nullable=False)
 
 
-def seedData(app):
-    app.security = Security(app, user_datastore)
-    app.security.datastore.db.create_all()
-    if not app.security.datastore.find_role("Admin"):
-        app.security.datastore.create_role(name="Admin")
-    if not app.security.datastore.find_role("Staff"):
-        app.security.datastore.create_role(name="Staff")
-    if not app.security.datastore.find_user(email="admin@systementor.se"):
-        app.security.datastore.create_user(
+def seedData(security):
+    security.datastore.db.create_all()
+    if not security.datastore.find_role("Admin"):
+        security.datastore.create_role(name="Admin")
+    if not security.datastore.find_role("Staff"):
+        security.datastore.create_role(name="Staff")
+    if not security.datastore.find_user(email="admin@systementor.se"):
+        security.datastore.create_user(
             email="admin@systementor.se",
             password=hash_password("password"),
             roles=["Admin"],
         )
-    if not app.security.datastore.find_user(email="worker1@systementor.se"):
-        app.security.datastore.create_user(
+    if not security.datastore.find_user(email="worker1@systementor.se"):
+        security.datastore.create_user(
             email="worker1@systementor.se",
             password=hash_password("password"),
             roles=["Staff"],
         )
-    if not app.security.datastore.find_user(email="worker2@systementor.se"):
-        app.security.datastore.create_user(
+    if not security.datastore.find_user(email="worker2@systementor.se"):
+        security.datastore.create_user(
             email="worker2@systementor.se",
             password=hash_password("password"),
             roles=["Staff"],
         )
-    app.security.datastore.db.session.commit()
+    security.datastore.db.session.commit()
 
     addCat(db, "Beverages", "Soft drinks, coffees, teas, beers, and ales")
     addCat(

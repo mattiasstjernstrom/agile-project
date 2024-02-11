@@ -1,3 +1,7 @@
+from flask import Blueprint, render_template, request
+from flask_security import Security
+
+from forms import NewsletterForm
 from .services import (
     getCategory,
     getTrendingCategories,
@@ -5,17 +9,13 @@ from .services import (
     getTrendingProducts,
     newSubscriber,
 )
-from forms import NewsletterForm
-from flask import Blueprint, render_template, request
-from forms import NewsletterForm
-from .services import (
-    getCategory,
-    getTrendingCategories,
-    getProduct,
-    getTrendingProducts,
-)
 
 productBluePrint = Blueprint("product", __name__)
+
+
+# @security.context_processor
+# def security_context_processor():
+#     return print("Hello")
 
 
 @productBluePrint.route("/", methods=["GET", "POST"])
@@ -24,19 +24,22 @@ def index() -> str:
     trendingCategories = getTrendingCategories()
     trendingProducts = getTrendingProducts()
 
-    form = NewsletterForm(request.form)
+    newsletter_form = NewsletterForm(request.form)
 
     return render_template(
         "products/index.html",
         trendingCategories=trendingCategories,
         products=trendingProducts,
-        form=form,
+        NL_form=newsletter_form,
     )
 
 
 @productBluePrint.route("/category/<id>", methods=["GET", "POST"])
 def category(id) -> str:
-    form = NewsletterForm()
+
+    form = 
+    
+    ()
     errorMessage = ""
     if request.method == "POST":
         errorMessage = newSubscriber()
@@ -53,6 +56,8 @@ def category(id) -> str:
 @productBluePrint.route("/newsletter", methods=["GET", "POST"])
 def newsletter() -> str:
     if request.method == "GET":
+
+        # TODO: Implement the GET method
 
         return "Method Not Allowed", 405
     form = NewsletterForm(request.form)
