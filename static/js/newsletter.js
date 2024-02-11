@@ -1,3 +1,4 @@
+const newsletterBox = document.getElementById("newsletter");
 const form = document.getElementById("newsletter-form");
 const newsletterEmail = document.getElementById("newsletter_email");
 const btn = form.querySelector("button");
@@ -52,5 +53,5 @@ function newsletterModal() {
   $("#newsletterModalPopup").modal({ show: true });
   const modalText = document.getElementById("newsletterModalPopupText");
   modalText.innerHTML = `Your email <strong>${newsletterEmail.value}</strong> has been successfully subscribed to our newsletter!`;
-  form.reset();
+  newsletterBox.style.display = "none";
 }

@@ -24,6 +24,12 @@ def manage_newsletter():
     )
 
 
+@adminBluePrint.route("/write-newsletter", methods=["GET", "POST"])
+@roles_accepted("Admin", "Staff")
+def write_newsletter():
+    return render_template("admin/writeNewsletter.html")
+
+
 @adminBluePrint.post("/delete-email")
 @roles_accepted("Admin", "Staff")
 def delete_email():
@@ -32,6 +38,6 @@ def delete_email():
     if email_to_delete:
         db.session.delete(email_to_delete)
         db.session.commit()
-        return redirect("/admin")
+        return redirect("/admin/manage-newsletter")
     else:
         return "Email not found", 404

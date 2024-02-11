@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
+from flask_login import current_user
 
 from forms import NewsletterForm
 from .services import (
@@ -7,9 +8,18 @@ from .services import (
     getProduct,
     getTrendingProducts,
     newSubscriber,
+    checkSubscriber,
 )
 
 productBluePrint = Blueprint("product", __name__)
+
+
+@productBluePrint.context_processor
+def processor():
+    is_subscribed_to_newsletter = False
+    if current_user.is_authenticated and checkSubscriber(current_user.email):
+        is_subscribed_to_newsletter = True
+    return dict(is_subscribed_to_newsletter=is_subscribed_to_newsletter)
 
 
 @productBluePrint.route("/", methods=["GET", "POST"])
@@ -48,10 +58,7 @@ def category(id) -> str:
 @productBluePrint.route("/newsletter", methods=["GET", "POST"])
 def newsletter() -> str:
     if request.method == "GET":
-
-        # TODO: Implement the GET method
-
-        return "Method Not Allowed", 405
+        return render_template("newsletter/index.html")
     form = NewsletterForm(request.form)
     return newSubscriber(form)
 

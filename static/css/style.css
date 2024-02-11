@@ -2337,12 +2337,16 @@ textarea.input {
   border-top: none !important;
 }
 
-.form-group input:not([type="checkbox"]) {
-  width: 400px !important;
+.form-group input:not([type="checkbox"]),
+.form-group textarea {
   border: 1px solid #444 !important;
   border-radius: 5px !important;
   padding: 10px 15px !important;
   margin-bottom: 20px !important;
+}
+
+.form-group input:not([type="checkbox"]) {
+  width: 400px !important;
 }
 
 .form-group input[type="submit"] {

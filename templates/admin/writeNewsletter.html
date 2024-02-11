@@ -1,0 +1,23 @@
+{% extends "baseTemplate.html" %} {% block title %} Newsletter {% endblock %}
+{%block maincontent%}
+<h1>Write Newsletter</h1>
+<form action="/newsletter" method="post">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" id="title" name="title" required />
+  </div>
+  <div class="form-group">
+    <label for="content">Content</label>
+    <textarea
+      rows="30"
+      cols="40"
+      class="form-control"
+      id="content"
+      name="content"
+      required>
+# Just mock, make a real one</textarea
+    >
+  </div>
+  <button type="submit" class="btn btn-primary">Send</button>
+  {% endblock %}
+</form>

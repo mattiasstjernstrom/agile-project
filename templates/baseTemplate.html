@@ -220,8 +220,8 @@
       <!-- /container -->
     </div>
     <!-- /SECTION -->
-    {# TODO: Hide NL if current_user already signed up on it: #} {% if NL_form
-    %} {% include '_newsletter.html' %} {% endif %}
+    {% if NL_form and not is_subscribed_to_newsletter %} {% include
+    '_newsletter.html' %} {% endif %}
     <!-- FOOTER -->
     <footer id="footer">
       <!-- top footer -->

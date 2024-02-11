@@ -40,3 +40,10 @@ def newSubscriber(form):
             return "Email is already subscribed to the newsletter", 409
     else:
         return form.errors, 400
+
+
+def checkSubscriber(email):
+    if NewsletterEmails.query.filter_by(Email=email).first() == None:
+        return False
+    else:
+        return True
