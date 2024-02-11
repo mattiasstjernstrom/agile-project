@@ -4,6 +4,11 @@ const newsletterEmail = document.getElementById("newsletter_email");
 const btn = form.querySelector("button");
 const errorMsg = document.getElementById("error-msg");
 
+/* If user wants to hide the newsletter box with localStorage
+if (localStorage.getItem("newsletterBox") === "none") {
+  newsletterBox.style.display = "none";
+} */
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   const newsletterForm = new FormData(form);
@@ -54,4 +59,5 @@ function newsletterModal() {
   const modalText = document.getElementById("newsletterModalPopupText");
   modalText.innerHTML = `Your email <strong>${newsletterEmail.value}</strong> has been successfully subscribed to our newsletter!`;
   newsletterBox.style.display = "none";
+  // localStorage.setItem("newsletterBox", "none");
 }
