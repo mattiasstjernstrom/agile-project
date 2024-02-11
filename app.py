@@ -1,10 +1,14 @@
 from flask import Flask
+
 from flask_migrate import Migrate, upgrade
 from flask_security import Security
 
 from areas.site.sitePages import siteBluePrint
 from areas.products.productPages import productBluePrint
+from areas.admin.admin import adminBluePrint
+
 from models import db, seedData, user_datastore
+
 
 app = Flask(__name__)
 app.config.from_object("config.ConfigDebug")
@@ -16,6 +20,8 @@ security = Security(app, user_datastore)
 # user_manager.app = app
 # user_manager.init_app(app,db,User)
 
+
+app.register_blueprint(adminBluePrint)
 app.register_blueprint(productBluePrint)
 app.register_blueprint(siteBluePrint)
 

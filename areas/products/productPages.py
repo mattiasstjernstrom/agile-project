@@ -1,3 +1,7 @@
+from flask import Blueprint, render_template, request
+from flask_security import Security
+
+from forms import NewsletterForm
 from .services import (
     getCategory,
     getTrendingCategories,
@@ -5,9 +9,6 @@ from .services import (
     getTrendingProducts,
     newSubscriber,
 )
-from forms import NewsletterForm, UserForms
-from flask import Blueprint, render_template, request
-from flask_security import Security
 
 productBluePrint = Blueprint("product", __name__)
 
@@ -36,7 +37,9 @@ def index() -> str:
 @productBluePrint.route("/category/<id>", methods=["GET", "POST"])
 def category(id) -> str:
 
-    form = UserForms()
+    form = 
+    
+    ()
     errorMessage = ""
     if request.method == "POST":
         errorMessage = newSubscriber()
