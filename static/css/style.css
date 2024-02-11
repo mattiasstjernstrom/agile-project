@@ -2359,7 +2359,6 @@ textarea.input {
   font-size: 18px !important;
   width: 400px !important;
   display: block !important;
-  cursor: pointer !important;
 }
 
 /* /Overrides bootstrap */
