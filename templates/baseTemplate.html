@@ -182,7 +182,16 @@
         <!-- responsive-nav -->
         <div id="responsive-nav">
           <!-- NAV -->
-          <ul class="main-nav nav navbar-nav"></ul>
+          <ul class="main-nav nav navbar-nav">
+            <li><a href="#">Startpage</a></li>
+            <li><a href="{{ url_for('product.index') }}">Shop</a></li>
+            {% if not current_user.is_authenticated %}
+            <li><a href="../login">Login</a></li>
+            <li><a href="../register">Register</a></li>
+            {% else %}
+            <li><a href="../logout">Logout</a></li>
+            {% endif %}
+          </ul>
           <!-- /NAV -->
         </div>
         <!-- /responsive-nav -->
