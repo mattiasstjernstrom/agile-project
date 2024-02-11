@@ -4,9 +4,9 @@ from flask_migrate import Migrate, upgrade
 from flask_security import Security
 
 from areas.site.sitePages import siteBluePrint
-from areas.products.productPages import productBluePrint
-from areas.admin.admin import adminBluePrint
-
+from areas.products import productBluePrint
+from areas.admin import adminBluePrint
+from areas.error import errorHandlersBluePrint
 from models import db, seedData, user_datastore
 
 
@@ -21,9 +21,10 @@ security = Security(app, user_datastore)
 # user_manager.init_app(app,db,User)
 
 
-app.register_blueprint(adminBluePrint)
+app.register_blueprint(adminBluePrint, url_prefix="/admin")
 app.register_blueprint(productBluePrint)
 app.register_blueprint(siteBluePrint)
+app.register_blueprint(errorHandlersBluePrint)
 
 
 if __name__ == "__main__":

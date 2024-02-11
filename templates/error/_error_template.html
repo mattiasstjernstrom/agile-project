@@ -1,0 +1,21 @@
+{% extends "baseTemplate.html" %} {% block title %} {{ error }} {% endblock %}
+{%block maincontent%}
+<div
+  style="
+    min-height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  ">
+  <div class="alert alert-danger" role="alert">
+    <h1 style="margin-bottom: 20px" class="alert-danger">
+      {{ error.code }}: {{ error.name }}
+    </h1>
+    <p>{{ error.description }}</p>
+    <br />
+    <a href="{{ url_for('product.index') }}" class="btn btn-danger"
+      >Back to home</a
+    >
+  </div>
+</div>
+{% endblock %}
