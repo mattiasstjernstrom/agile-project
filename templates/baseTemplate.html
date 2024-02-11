@@ -53,11 +53,19 @@
             {% if not current_user.is_authenticated %}
             <li><a href="../login">Login</a></li>
             <li><a href="../register">Register</a></li>
-            {% else %}
+            {% else %} {% if current_user.is_authenticated and
+            current_user.has_role('Admin') or current_user.is_authenticated and
+            current_user.has_role('Staff') %}
+            <li><a href="{{ url_for('admin.admin') }}">Admin Start</a></li>
             <li>
-              <!-- Temporary logged in mail -->
-              <i style="margin-right: 15px">({{ current_user.email }})</i>
-              <!-- /Temporary logged in mail -->
+              <a href="{{ url_for('admin.manage_newsletter') }}"
+                >Manage Newsletter</a
+              >
+            </li>
+            {% endif %}
+            <li>&nbsp;</li>
+            {# Space between normal menu and admin sections #}
+            <li>
               <a href="../logout">Logout</a>
             </li>
             {% endif %}
@@ -196,16 +204,6 @@
           <ul class="main-nav nav navbar-nav">
             <li><a href="#">Startpage</a></li>
             <li><a href="{{ url_for('product.index') }}">Shop</a></li>
-            {% if current_user.is_authenticated and
-            current_user.has_role('Admin') or current_user.is_authenticated and
-            current_user.has_role('Staff') %}
-            <li>&nbsp;</li>
-            {# Space between normal menu and admin sections #}
-            <li><a href="{{ url_for('admin.admin') }}">Admin Page</a></li>
-            <li>
-              <a href="#">Manage Newsletter</a>
-              {% endif %}
-            </li>
           </ul>
 
           <!-- /NAV -->
@@ -222,7 +220,8 @@
       <!-- /container -->
     </div>
     <!-- /SECTION -->
-    {% if NL_form %} {% include '_newsletter.html' %} {% endif %}
+    {# TODO: Hide NL if current_user already signed up on it: #} {% if NL_form
+    %} {% include '_newsletter.html' %} {% endif %}
     <!-- FOOTER -->
     <footer id="footer">
       <!-- top footer -->

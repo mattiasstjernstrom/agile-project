@@ -12,11 +12,6 @@ from .services import (
 productBluePrint = Blueprint("product", __name__)
 
 
-# @security.context_processor
-# def security_context_processor():
-#     return print("Hello")
-
-
 @productBluePrint.route("/", methods=["GET", "POST"])
 def index() -> str:
     trendingCategories = []

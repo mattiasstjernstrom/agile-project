@@ -13,7 +13,15 @@ adminBluePrint = Blueprint("admin", __name__)
 @adminBluePrint.route("/")
 @roles_accepted("Admin", "Staff")
 def admin():
-    return render_template("admin.html", values=NewsletterEmails.query.all())
+    return render_template("admin/admin.html", values=NewsletterEmails.query.all())
+
+
+@adminBluePrint.route("/manage-newsletter", methods=["GET", "POST"])
+@roles_accepted("Admin", "Staff")
+def manage_newsletter():
+    return render_template(
+        "admin/manageNewsletter.html", values=NewsletterEmails.query.all()
+    )
 
 
 @adminBluePrint.post("/delete-email")
