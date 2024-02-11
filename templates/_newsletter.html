@@ -8,7 +8,7 @@
         <div class="newsletter">
           <p>Sign Up for the <strong>NEWSLETTER</strong></p>
           <form action="/newsletter" method="post" id="newsletter-form">
-            {{ form.csrf_token }} {{ form.newsletter_email(class_="input",
+            {{ NL_form.csrf_token }} {{ NL_form.newsletter_email(class_="input",
             placeholder="Enter Your Email") }}
             <button class="newsletter-btn">
               <i class="fa fa-envelope"></i> Subscribe
@@ -74,3 +74,6 @@
 </div>
 <!-- /Newsletter Modal -->
 <!-- /NEWSLETTER -->
+{% block scripts %}
+<script src="{{ url_for('static',filename='js/newsletter.js') }}"></script>
+{% endblock %}

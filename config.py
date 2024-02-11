@@ -2,6 +2,10 @@ class ConfigDebug:
     SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://root:password@localhost/grupparbete"  # File-based SQL database
     SECRET_KEY = "SDFA11#"
 
+    # Login Variables
+    SECURITY_LOGIN_USER_TEMPLATE = "security/login_user.html"
+    SECURITY_POST_LOGOUT_VIEW = "/login"
+
     # Flask-Mail SMTP server settings
     MAIL_SERVER = "127.0.0.1"
     MAIL_PORT = 1025
