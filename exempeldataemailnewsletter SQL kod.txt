@@ -1,6 +1,0 @@
-## Lite exempeldata som kan matas in i databasen via Dbeaver för att testa att radera ifrån nyhetsbrevet. 
-
-INSERT INTO NewsletterEmails (EmailID, Email) VALUES
-(1, 'example1@example.com'),
-(2, 'example2@example.com'),
-(3, 'example3@example.com');

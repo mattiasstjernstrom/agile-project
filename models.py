@@ -1,4 +1,3 @@
-from enum import unique
 from wsgiref.validate import validator
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import (
@@ -10,7 +9,6 @@ from flask_security import (
 from flask_security.models import fsqla_v3 as fsqla
 
 db = SQLAlchemy()
-
 
 fsqla.FsModels.set_db_info(db)
 

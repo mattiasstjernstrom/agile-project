@@ -6,7 +6,7 @@ from .services import (
     newSubscriber,
 )
 from forms import NewsletterForm
-from flask import Blueprint, render_template, request, redirect, jsonify
+from flask import Blueprint, render_template, request
 from forms import NewsletterForm
 from .services import (
     getCategory,
