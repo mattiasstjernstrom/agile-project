@@ -25,7 +25,7 @@ def index() -> str:
         "products/index.html",
         trendingCategories=trendingCategories,
         products=trendingProducts,
-        NL_form=newsletter_form,
+        newsletter_form=newsletter_form,
     )
 
 

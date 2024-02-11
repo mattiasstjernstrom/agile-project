@@ -28,22 +28,16 @@ def getTrendingProducts():
 
 def newSubscriber(form):
     if form.validate():
-        if (
-            NewsletterEmails.query.filter_by(Email=form.newsletter_email.data).first()
-            == None
-        ):
+        if user_is_subscribed(form.newsletter_email.data):
+            return "Email is already subscribed to the newsletter", 409
+        else:
             new_sub = NewsletterEmails(Email=form.newsletter_email.data)
             db.session.add(new_sub)
             db.session.commit()
             return jsonify("Form Submitted Successfully"), 200
-        else:
-            return "Email is already subscribed to the newsletter", 409
     else:
         return form.errors, 400
 
 
-def checkSubscriber(email):
-    if NewsletterEmails.query.filter_by(Email=email).first() == None:
-        return False
-    else:
-        return True
+def user_is_subscribed(email):
+    return NewsletterEmails.query.filter_by(Email=email).first() is not None

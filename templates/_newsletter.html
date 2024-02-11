@@ -8,7 +8,10 @@
         <div class="newsletter">
           <p>Sign Up for the <strong>NEWSLETTER</strong></p>
           <form action="/newsletter" method="post" id="newsletter-form">
-            {{ NL_form.csrf_token }} {{ NL_form.newsletter_email(class_="input",
+            {{ newsletter_form.csrf_token }}
+            <!--prettier-ignore-->
+            <!--suppress Prettier to not mess with this line-->
+            {{ newsletter_form.newsletter_email(class_="input",
             placeholder="Enter Your Email") }}
             <button class="newsletter-btn">
               <i class="fa fa-envelope"></i> Subscribe

@@ -9,7 +9,7 @@ from areas.site.sitePages import siteBluePrint
 from areas.products import productBluePrint
 from areas.admin import adminBluePrint
 from areas.error import errorHandlersBluePrint
-from areas.products.services import checkSubscriber
+from areas.products.services import user_is_subscribed
 from models import db, seedData, user_datastore, Category
 
 app = Flask(__name__)
@@ -31,13 +31,12 @@ app.register_blueprint(errorHandlersBluePrint)
 
 #! If you need something to be available in all templates, you can use this context processor.
 @app.context_processor
-def processor():
+def context_processor():
     is_subscribed_to_newsletter = False
-    if current_user.is_authenticated and checkSubscriber(current_user.email):
+    if current_user.is_authenticated and user_is_subscribed(current_user.email):
         is_subscribed_to_newsletter = True
 
     all_categories = Category().query.all()
-    print(all_categories)
 
     return dict(
         is_subscribed_to_newsletter=is_subscribed_to_newsletter,
