@@ -1,6 +1,4 @@
 from flask import Blueprint, render_template, request, redirect
-
-
 from forms import NewsletterForm
 from .services import (
     getCategory,

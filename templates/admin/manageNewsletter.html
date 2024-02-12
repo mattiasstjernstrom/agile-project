@@ -3,14 +3,12 @@
 <h1>Newsletter Subscribers</h1>
 <a href="{{ url_for('admin.write_newsletter') }}" class="btn btn-default"
   >Write Newsletter</a
-><!--! link is the same as write !-->
+>
 <a href="{{ url_for('admin.write_newsletter') }}" class="btn btn-default"
   >Edit Newsletter</a
 >
-<a href="{{ url_for('admin.write_newsletter') }}" class="btn btn-default"
-  >Add Email</a
->
-<!--! link is the same as write !-->
+<a href="../#newsletter-form" class="btn btn-default">Add Email</a>
+
 <ul class="list-group">
   {% for item in values %}
   <li class="list-group-item">
