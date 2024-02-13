@@ -16,11 +16,13 @@ from models import db, seedData, user_datastore, Category
 app = Flask(__name__)
 app.config.from_object("config.ConfigDebug")
 
+mail = Mail(app)
 db.app = app
 db.init_app(app)
 migrate = Migrate(app, db)
 security = Security(app, user_datastore)
-mail = Mail(app)
+
+mail.init_app(app)
 # user_manager.app = app
 # user_manager.init_app(app,db,User)
 

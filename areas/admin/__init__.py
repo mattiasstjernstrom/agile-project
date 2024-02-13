@@ -1,10 +1,13 @@
+import datetime as dt
+
 from flask import Blueprint, render_template, request, redirect
 from flask_security import roles_accepted
 
-import datetime as dt
-
 from forms import DeleteNewsletterEmailForm, NewsletterForm
 from models import NewsletterEmails, Newsletter, db
+from extensions import mail  # Förbreedd för att kunna skicka mail
+
+my_blueprint = Blueprint("my_blueprint", __name__)
 
 adminBluePrint = Blueprint("admin", __name__)
 
