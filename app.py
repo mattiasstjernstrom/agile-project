@@ -2,6 +2,7 @@ from flask import Flask
 
 from flask_migrate import Migrate, upgrade
 from flask_login import current_user
+from flask_mail import Mail
 from flask_security import Security
 
 
@@ -19,6 +20,7 @@ db.app = app
 db.init_app(app)
 migrate = Migrate(app, db)
 security = Security(app, user_datastore)
+mail = Mail(app)
 # user_manager.app = app
 # user_manager.init_app(app,db,User)
 

@@ -1,23 +1,21 @@
-{% extends "baseTemplate.html" %} {% block title %} Newsletter {% endblock %}
+{% extends "baseTemplate.html" %} {% block title %} Newsletter {% endblock %} {%
+from "security/_macros.html" import render_field_with_errors, render_field %}
 {%block maincontent%}
 <h1>Write Newsletter</h1>
-<form action="/newsletter" method="post">
+<form action="write-newsletter" method="post">
+  {{ form_newsletter.csrf_token }}
   <div class="form-group">
-    <label for="title">Title</label>
-    <input type="text" class="form-control" id="title" name="title" required />
+    {{ form_newsletter.subject(required='required') }}
   </div>
   <div class="form-group">
     <label for="content">Content</label>
     <textarea
-      rows="30"
-      cols="40"
+      rows="20"
       class="form-control"
       id="content"
       name="content"
-      required>
-# Just mock, make a real one</textarea
-    >
+      required></textarea>
   </div>
-  <button type="submit" class="btn btn-primary">Send</button>
-  {% endblock %}
+  <button type="submit" class="btn btn-primary">Save</button>
 </form>
+{% endblock %}

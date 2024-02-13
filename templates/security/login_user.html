@@ -1,6 +1,7 @@
-{% extends "baseTemplate.html" %} {% from "security/_macros.html" import
-render_field_with_errors, render_field, render_field_errors, render_form_errors,
-prop_next %} {% include "security/_messages.html" %}{% block maincontent %}
+{% extends "baseTemplate.html" %} {% block title %} {{ _fsdomain('Login') }} {%
+endblock %} {% from "security/_macros.html" import render_field_with_errors,
+render_field, render_field_errors, render_form_errors, prop_next %} {% include
+"security/_messages.html" %}{% block maincontent %}
 <h1>{{ _fsdomain('Login') }}</h1>
 <form
   action="{{ url_for_security('login') }}{{ prop_next() }}"
@@ -8,7 +9,7 @@ prop_next %} {% include "security/_messages.html" %}{% block maincontent %}
   name="login_user_form">
   {{ login_user_form.hidden_tag() }} {{ render_form_errors(login_user_form) }}
   {% if "email" in identity_attributes %}{{
-  render_field_with_errors(login_user_form.email) }}{% endif %} {% if
+  render_field_with_errors(login_user_form.email) }}{% endif %}{% if
   login_user_form.username and "username" in identity_attributes %} {% if
   "email" in identity_attributes %}
   <h3>{{ _fsdomain("or") }}</h3>
@@ -19,7 +20,20 @@ prop_next %} {% include "security/_messages.html" %}{% block maincontent %}
   </div>
   {{ render_field_with_errors(login_user_form.remember) }} {{
   render_field_errors(login_user_form.csrf_token) }} {{
-  render_field(login_user_form.submit) }}
+  render_field(login_user_form.submit) }} {% if security.registerable %}
+  <span class="fs-gap">
+    <a href="{{ url_for_security('register') }}"
+      >{{ _fsdomain('...or Register') }}</a
+    >
+  </span>
+  {% endif %} {% if security.recoverable %}
+  <span class="fs-gap">
+    -
+    <a href="{{ url_for_security('forgot_password') }}"
+      >{{ _fsdomain('Have you forgot your password?') }}</a
+    >
+  </span>
+  {% endif %}
 </form>
 {% if security.webauthn %}
 <hr class="fs-gap" />
@@ -55,6 +69,4 @@ prop_next %} {% include "security/_messages.html" %}{% block maincontent %}
     {% endif %}
   </form>
 </div>
-{% endfor %} {% endif %} {% endblock %} {% block scripts %}
-<script src="{{ url_for('static',filename='js/newsletter.js') }}"></script>
-{% endblock %}
+{% endfor %} {% endif %} {% endblock %} {% block scripts %} {% endblock %}

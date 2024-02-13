@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import EmailField, IntegerField
+from wtforms import EmailField, IntegerField, StringField, TextAreaField, BooleanField
 from wtforms.widgets import HiddenInput
 from wtforms.validators import DataRequired, Email, Length
 
@@ -17,3 +17,12 @@ class NewsletterForm(FlaskForm):
 
 class DeleteNewsletterEmailForm(FlaskForm):
     email_id = IntegerField("email_id", [DataRequired()], widget=HiddenInput())
+
+
+class NewsletterForm(FlaskForm):
+    subject = StringField(
+        "Subject", validators=[DataRequired(message="Subject is required")]
+    )
+    content = TextAreaField(
+        "Content", validators=[DataRequired(message="Content is required")]
+    )
