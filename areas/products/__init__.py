@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect
-from forms import NewsletterForm
+from forms import SubscribeNewsletterForm
 from .services import (
     getCategory,
     getTrendingCategories,
@@ -17,8 +17,13 @@ def index() -> str:
     trendingCategories = getTrendingCategories()
     trendingProducts = getTrendingProducts()
 
-    newsletter_form = NewsletterForm(request.form)
-
+    if request.method == "POST":
+        newsletter_form = SubscribeNewsletterForm(request.form)
+        if newsletter_form.validate_on_submit():
+            pass
+    else:
+        newsletter_form = SubscribeNewsletterForm()
+    print(newsletter_form.__dict__)
     return render_template(
         "products/index.html",
         trendingCategories=trendingCategories,

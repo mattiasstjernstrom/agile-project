@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from forms import NewsletterForm
+from forms import SubscribeNewsletterForm
 from areas.products.services import newSubscriber
 
 siteBluePrint = Blueprint("site", __name__)
@@ -7,7 +7,8 @@ siteBluePrint = Blueprint("site", __name__)
 
 @siteBluePrint.route("/contact")
 def contact() -> str:
-    form = NewsletterForm()
+
+    form = SubscribeNewsletterForm()
     errorMessage = ""
     if request.method == "POST":
         errorMessage = newSubscriber()
@@ -17,7 +18,8 @@ def contact() -> str:
 
 @siteBluePrint.route("/terms")
 def terms() -> str:
-    form = NewsletterForm()
+
+    form = SubscribeNewsletterForm()
     errorMessage = ""
     if request.method == "POST":
         errorMessage = newSubscriber()
@@ -27,7 +29,8 @@ def terms() -> str:
 
 @siteBluePrint.route("/about")
 def about() -> str:
-    form = NewsletterForm()
+
+    form = SubscribeNewsletterForm()
     errorMessage = ""
     if request.method == "POST":
         errorMessage = newSubscriber()

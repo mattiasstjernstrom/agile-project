@@ -4,7 +4,7 @@ from wtforms.widgets import HiddenInput
 from wtforms.validators import DataRequired, Email, Length
 
 
-class NewsletterForm(FlaskForm):
+class SubscribeNewsletterForm(FlaskForm):
     newsletter_email = EmailField(
         "Email",
         validators=[
@@ -19,7 +19,7 @@ class DeleteNewsletterEmailForm(FlaskForm):
     email_id = IntegerField("email_id", [DataRequired()], widget=HiddenInput())
 
 
-class NewsletterForm(FlaskForm):
+class WriteNewsletterForm(FlaskForm):
     subject = StringField(
         "Subject", validators=[DataRequired(message="Subject is required")]
     )
