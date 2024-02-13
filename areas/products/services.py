@@ -5,7 +5,7 @@ from models import db, Category, Product, NewsletterEmails
 def getTrendingCategories():
     return (
         Category.query.order_by(Category.CategoryID.desc())
-        .paginate(page=1, per_page=4, error_out=False)
+        .paginate(page=1, per_page=3, error_out=False)
         .items
     )
 
@@ -21,7 +21,7 @@ def getProduct(id):
 def getTrendingProducts():
     return (
         Product.query.order_by(Product.ProductID.desc())
-        .paginate(page=1, per_page=8, error_out=False)
+        .paginate(page=1, per_page=9, error_out=False)
         .items
     )
 

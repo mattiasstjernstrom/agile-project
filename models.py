@@ -45,11 +45,19 @@ class Product(db.Model):
     Discontinued = db.Column(db.Boolean, unique=False, nullable=False)
 
 
-# Email för prenumeranter av nyhetsbrev
 class NewsletterEmails(db.Model):
     __tablename__ = "NewsletterEmails"
     EmailID = db.Column(db.Integer, primary_key=True)
     Email = db.Column(db.String(255), unique=True, nullable=False)
+
+
+class Newsletter(db.Model):
+    __tablename__ = "Newsletter"
+    LetterID = db.Column(db.Integer, primary_key=True)
+    Subject = db.Column(db.String(255), nullable=False)
+    Content = db.Column(db.String(255), nullable=False)
+    Date = db.Column(db.DateTime, unique=False, nullable=False)
+    Sent = db.Column(db.Boolean, unique=False, nullable=False)
 
 
 def seedData(security):
