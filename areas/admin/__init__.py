@@ -46,6 +46,22 @@ def write_newsletter():
         "admin/writeNewsletter.html", write_newsletter=write_newsletter
     )
 
+@adminBluePrint.route("/edit-newsletter", methods=["GET", "POST"])
+@roles_accepted("Admin", "Staff")
+def edit_newsletter():
+    write_newsletter = WriteNewsletterForm(request.form)
+    if write_newsletter.validate():
+        subject = write_newsletter.subject.data
+        content = write_newsletter.content.data
+        date = dt.datetime.now()
+        sent = False
+        newsletter = Newsletter(Subject=subject, Content=content, Date=date, Sent=sent)
+        db.session.add(newsletter)
+        db.session.commit()
+        return redirect("/admin/manage-newsletter")
+    return render_template(
+        "admin/editNewsletter.html", write_newsletter=write_newsletter
+    )
 
 @adminBluePrint.route("/delete-email", methods=["POST"])
 @roles_accepted("Admin", "Staff")
