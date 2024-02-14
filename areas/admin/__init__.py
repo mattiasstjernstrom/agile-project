@@ -92,7 +92,6 @@ def add_email_newsletter():
     )
 
 
-
 @adminBluePrint.route("/delete-email", methods=["POST"])
 @roles_accepted("Admin", "Staff")
 def delete_email():
@@ -104,7 +103,7 @@ def delete_email():
             if email_to_delete:
                 db.session.delete(email_to_delete)
                 db.session.commit()
-                return redirect("/admin/manage-newsletter")
+                return redirect("/admin/add-email-newsletter")
         else:
             return "Email not found", 404
     else:

@@ -1,6 +1,6 @@
 {% extends "baseTemplate.html" %} {% block title %} Newsletter {% endblock %}
 {%block maincontent%}
-<h1>Add email</h1>
+<h1>Manage Subscribers</h1>
 <p>
   <a href="{{ url_for('admin.manage_newsletter') }}"
     ><i class="fa fa-chevron-left"></i> Manage Newsletter</a
@@ -40,7 +40,7 @@
       {{ form_delete.csrf_token }}
       <input type="hidden" name="email_id" value="{{ item.EmailID }}" />
       <button type="submit" class="btn btn-danger btn-sm">
-        <i class="fa fa-trash-o"></i>Delete
+        <i class="fa fa-trash-o"></i> Delete
       </button>
     </form>
   </li>
