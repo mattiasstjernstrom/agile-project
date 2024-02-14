@@ -3,7 +3,7 @@ import datetime as dt
 from flask import Blueprint, render_template, request, redirect
 from flask_security import roles_accepted
 
-from forms import DeleteNewsletterEmailForm, WriteNewsletterForm
+from forms import DeleteNewsletterEmailForm, WriteNewsletterForm, SubscribeNewsletterForm
 from models import NewsletterEmails, Newsletter, db
 from extensions import mail  # Förbreedd för att kunna skicka mail
 
@@ -62,6 +62,19 @@ def edit_newsletter():
     return render_template(
         "admin/editNewsletter.html", write_newsletter=write_newsletter
     )
+
+@adminBluePrint.route("/add-email-newsletter", methods=["GET", "POST"])
+@roles_accepted("Admin", "Staff")
+def add_email_newsletter():
+    form_add_email = SubscribeNewsletterForm(request.form)
+    form_delete = DeleteNewsletterEmailForm()
+    return render_template(
+        "admin/addEmailNewsletter.html",
+        values=NewsletterEmails.query.all(),
+        newsletter_form=form_add_email, 
+        form_delete=form_delete
+    )
+
 
 @adminBluePrint.route("/delete-email", methods=["POST"])
 @roles_accepted("Admin", "Staff")
