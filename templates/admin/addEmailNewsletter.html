@@ -1,0 +1,51 @@
+{% extends "baseTemplate.html" %} {% block title %} Newsletter {% endblock %}
+{%block maincontent%}
+<h1>Add email</h1>
+<p>
+  <a href="{{ url_for('admin.manage_newsletter') }}"
+    ><i class="fa fa-chevron-left"></i> Manage Newsletter</a
+  >
+</p>
+<div class="">
+  <form
+    action="{{ url_for('admin.add_email_newsletter') }}"
+    method="post"
+    id="newsletter-form"
+    class="form-inline">
+    {{ newsletter_form.csrf_token }}
+    <!--prettier-ignore-->
+    {{ newsletter_form.newsletter_email(class_="input",
+    placeholder="Enter Your Email") }}
+    <button class="newsletter-btn btn-sm">
+      <i class="fa fa-envelope"></i> Subscribe
+    </button>
+    <div style="padding: 10px">
+      <i id="error-msg" class="text-danger p-4"></i>
+    </div>
+  </form>
+  {{ errorMessage }}
+</div>
+<div style="padding: 10px">
+  <i id="error-msg" class="text-danger p-4"></i>
+</div>
+
+<ul class="list-group">
+  {% for item in values %}
+  <li class="list-group-item">
+    Email: {{item.Email}}
+    <form
+      action="{{ url_for('admin.delete_email') }}"
+      method="post"
+      style="display: inline">
+      {{ form_delete.csrf_token }}
+      <input type="hidden" name="email_id" value="{{ item.EmailID }}" />
+      <button type="submit" class="btn btn-danger btn-sm">
+        <i class="fa fa-trash-o"></i>Delete
+      </button>
+    </form>
+  </li>
+  {% endfor %} {% if values|length == 0 %}
+  <li class="list-group-item">No subscribers</li>
+  {% endif %}
+</ul>
+{% endblock %}
