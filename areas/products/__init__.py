@@ -23,7 +23,6 @@ def index() -> str:
             pass
     else:
         newsletter_form = SubscribeNewsletterForm()
-    print(newsletter_form.__dict__)
     return render_template(
         "products/index.html",
         trendingCategories=trendingCategories,

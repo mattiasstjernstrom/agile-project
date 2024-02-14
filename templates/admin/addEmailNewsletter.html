@@ -3,13 +3,17 @@
 <h1>Add email</h1>
 <p>
   <a href="{{ url_for('admin.manage_newsletter') }}"
-    ><i class="fa fa-chevron-left"></i>Manage Newsletter</a>
+    ><i class="fa fa-chevron-left"></i> Manage Newsletter</a
+  >
 </p>
 <div class="">
-  <form action="/add-email-newsletter" method="post" id="newsletter-form" class="form-inline">
+  <form
+    action="{{ url_for('admin.add_email_newsletter') }}"
+    method="post"
+    id="newsletter-form"
+    class="form-inline">
     {{ newsletter_form.csrf_token }}
     <!--prettier-ignore-->
-    <!--suppress Prettier to not mess with this line-->
     {{ newsletter_form.newsletter_email(class_="input",
     placeholder="Enter Your Email") }}
     <button class="newsletter-btn btn-sm">
@@ -21,10 +25,10 @@
   </form>
   {{ errorMessage }}
 </div>
-  <div style="padding: 10px">
-    <i id="error-msg" class="text-danger p-4"></i>
-  </div>
-</form>
+<div style="padding: 10px">
+  <i id="error-msg" class="text-danger p-4"></i>
+</div>
+
 <ul class="list-group">
   {% for item in values %}
   <li class="list-group-item">
