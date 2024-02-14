@@ -46,6 +46,7 @@ def write_newsletter():
         "admin/writeNewsletter.html", write_newsletter=write_newsletter
     )
 
+
 @adminBluePrint.route("/edit-newsletter", methods=["GET", "POST"])
 @roles_accepted("Admin", "Staff")
 def edit_newsletter():
@@ -63,6 +64,7 @@ def edit_newsletter():
         "admin/editNewsletter.html", write_newsletter=write_newsletter
     )
 
+
 @adminBluePrint.route("/delete-email", methods=["POST"])
 @roles_accepted("Admin", "Staff")
 def delete_email():
@@ -79,3 +81,11 @@ def delete_email():
             return "Email not found", 404
     else:
         return "Invalid form data", 400
+
+
+@adminBluePrint.route("/view-newsletters", methods=["GET", "POST"])
+@roles_accepted("Admin", "Staff")
+def view_newsletters():
+    return render_template(
+        "admin/viewNewsletter.html", newsletters=Newsletter.query.all()
+    )

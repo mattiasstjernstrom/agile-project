@@ -23,7 +23,6 @@ def index() -> str:
             pass
     else:
         newsletter_form = SubscribeNewsletterForm()
-    print(newsletter_form.__dict__)
     return render_template(
         "products/index.html",
         trendingCategories=trendingCategories,
@@ -35,7 +34,7 @@ def index() -> str:
 @productBluePrint.route("/category/<id>", methods=["GET", "POST"])
 def category(id) -> str:
 
-    form = NewsletterForm(request.form)
+    form = SubscribeNewsletterForm(request.form)
     errorMessage = ""
     if request.method == "POST":
         errorMessage = newSubscriber()
@@ -53,13 +52,13 @@ def category(id) -> str:
 def newsletter() -> str:
     if request.method == "GET":
         return render_template("newsletter/index.html")
-    form = NewsletterForm(request.form)
+    form = SubscribeNewsletterForm(request.form)
     return newSubscriber(form)
 
 
 @productBluePrint.route("/product/<id>", methods=["GET", "POST"])
 def product(id) -> str:
-    form = NewsletterForm()
+    form = SubscribeNewsletterForm()
     errorMessage = ""
     if request.method == "POST":
         errorMessage = newSubscriber()
