@@ -31,6 +31,7 @@ def manage_newsletter():
         "admin/manageNewsletter.html",
         values=NewsletterEmails.query.all(),
         form_delete=form_delete,
+        newsletters=Newsletter.query.all(),
     )
 
 
