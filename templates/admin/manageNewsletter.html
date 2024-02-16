@@ -18,10 +18,19 @@
   {% for newsletter in newsletters %}
 
   <li class="list-group-item">
-    [ {% if newsletter.Sent == True %} Sent {% else %} Draft {% endif %} ]
+    {% if newsletter.Sent == True %}
+    <i class="fa fa-check btn btn-success btn-xs"></i> {% else %}
+    <i class="fa fa-times btn btn-danger btn-xs"></i>
+    {% endif %}
     <a href="#">{{ newsletter.Subject }}</a>
-    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-    <a href="#" class="btn btn-danger btn-sm"
+    <a
+      href="{{ url_for('admin.delete_newsletter', id=newsletter.LetterID) }}"
+      class="btn btn-danger btn-sm"
+      ><i class="fa fa-trash"></i
+    ></a>
+    <a
+      href="{{ url_for('admin.send_newsletter', id=newsletter.LetterID) }}"
+      class="btn btn-danger btn-sm"
       ><i class="fa fa-paper-plane"></i
     ></a>
     <a
