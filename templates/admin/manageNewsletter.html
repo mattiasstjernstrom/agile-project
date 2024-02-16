@@ -23,16 +23,24 @@
     <i class="fa fa-times btn btn-danger btn-xs"></i>
     {% endif %}
     <a href="#">{{ newsletter.Subject }}</a>
+    {% if current_user.is_admin %}
     <a
       href="{{ url_for('admin.delete_newsletter', id=newsletter.LetterID) }}"
       class="btn btn-danger btn-sm"
       ><i class="fa fa-trash"></i
     ></a>
+    {% endif %}
+    {% if current_user.is_authenticated %}
+      {% if current_user.is_admin %}
+        {% if not newsletter_email.sent %}
     <a
       href="{{ url_for('admin.send_newsletter', id=newsletter.LetterID) }}"
       class="btn btn-danger btn-sm"
       ><i class="fa fa-paper-plane"></i
     ></a>
+        {% endif %}
+      {% endif %}
+    {% endif %}
     <a
       href="{{ url_for('admin.edit_newsletter') }}"
       class="btn btn-danger btn-sm"
