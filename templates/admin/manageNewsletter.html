@@ -23,11 +23,13 @@
     <i class="fa fa-times btn btn-danger btn-xs"></i>
     {% endif %}
     <a href="#">{{ newsletter.Subject }}</a>
+    {% if current_user.is_admin %}
     <a
       href="{{ url_for('admin.delete_newsletter', id=newsletter.LetterID) }}"
       class="btn btn-danger btn-sm"
       ><i class="fa fa-trash"></i
     ></a>
+    {% endif %}
     <a
       href="{{ url_for('admin.send_newsletter', id=newsletter.LetterID) }}"
       class="btn btn-danger btn-sm"

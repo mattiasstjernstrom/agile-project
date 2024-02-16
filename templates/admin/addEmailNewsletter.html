@@ -33,6 +33,7 @@
   {% for item in values %}
   <li class="list-group-item">
     Email: {{item.Email}}
+    {% if current_user.is_admin %}
     <form
       action="{{ url_for('admin.delete_email') }}"
       method="post"
@@ -43,6 +44,7 @@
         <i class="fa fa-trash-o"></i> Delete
       </button>
     </form>
+    {% endif %}
   </li>
   {% endfor %} {% if values|length == 0 %}
   <li class="list-group-item">No subscribers</li>
