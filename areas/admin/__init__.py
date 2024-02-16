@@ -2,6 +2,7 @@ import datetime as dt
 
 from flask import Blueprint, render_template, request, redirect
 from flask_security import roles_accepted
+from flask_mail import Message
 
 from forms import (
     DeleteNewsletterEmailForm,
@@ -11,8 +12,6 @@ from forms import (
 from models import NewsletterEmails, Newsletter, db
 from areas.products.services import user_is_subscribed
 from extensions import mail  # Förbreedd för att kunna skicka mail
-
-my_blueprint = Blueprint("my_blueprint", __name__)
 
 adminBluePrint = Blueprint("admin", __name__)
 
@@ -111,9 +110,39 @@ def delete_email():
         return "Invalid form data", 400
 
 
-@adminBluePrint.route("/view-newsletters", methods=["GET", "POST"])
+@adminBluePrint.route("/send-newsletter", methods=["GET", "POST"])
 @roles_accepted("Admin", "Staff")
-def view_newsletters():
-    return render_template(
-        "admin/viewNewsletter.html", newsletters=Newsletter.query.all()
-    )
+def send_newsletter():
+    send_newsletter = request.args.get("id")
+
+    newsletter_to_send = Newsletter.query.filter_by(LetterID=send_newsletter).first()
+    if newsletter_to_send:
+        newsletter_to_send.Sent = True
+        db.session.commit()
+        emails = NewsletterEmails.query.all()
+        for email in emails:
+            msg = Message(
+                newsletter_to_send.Subject,
+                sender="no-replay@stefanssupershop.com",
+                recipients=[email.Email],
+            )
+            msg.body = newsletter_to_send.Content
+            mail.send(msg)
+        return redirect("/admin/manage-newsletter")
+    else:
+        return "No newsletter to send (wrong id)", 404
+
+
+@adminBluePrint.route("/delete-newsletter", methods=["GET", "POST"])
+@roles_accepted("Admin", "Staff")
+def delete_newsletter():
+    delete_newsletter = request.args.get("id")
+    newsletter_to_delete = Newsletter.query.filter_by(
+        LetterID=delete_newsletter
+    ).first()
+    if newsletter_to_delete:
+        db.session.delete(newsletter_to_delete)
+        db.session.commit()
+        return redirect("/admin/manage-newsletter")
+    else:
+        return "No newsletter to delete (wrong id)", 404
