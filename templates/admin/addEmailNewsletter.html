@@ -12,11 +12,13 @@
     method="post"
     id="newsletter-form"
     class="form-inline">
-    {{ newsletter_form.csrf_token }}
-    <!--prettier-ignore-->
-    {{ newsletter_form.newsletter_email(class_="input",
-    placeholder="Enter Your Email") }}
-    <button class="newsletter-btn btn-sm">
+    <div class="form-group">
+      {{ newsletter_form.csrf_token }}
+      <!--prettier-ignore-->
+      {{ newsletter_form.newsletter_email(class_="input form-control",
+      placeholder="Enter Email") }}
+    </div>
+    <button class="btn btn-default">
       <i class="fa fa-envelope"></i> Subscribe
     </button>
     <div style="padding: 10px">
