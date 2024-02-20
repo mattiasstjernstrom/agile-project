@@ -27,53 +27,51 @@
   </thead>
   <tbody>
     {% for newsletter in newsletters %}
-      <tr class="table-light">
-        <td>
-          {% if newsletter.Sent == True %}
-            <i class="fa fa-check btn btn-success btn-xs"></i> {% else %}
-            <i class="fa fa-times btn btn-danger btn-xs"></i>
-          {% endif %}
-        </td>
-        <td>
-          <a href="#"><strong>{{ newsletter.Subject }}</strong></a>
-        </td>
-        <td>
-          {{ newsletter.Date.strftime('%Y-%m-%d') }}
-        </td>
-        <td>
-          {% if current_user.is_admin %}
-            <a
-              href="{{ url_for('admin.delete_newsletter', id=newsletter.LetterID) }}"
-              class="btn btn-danger btn-sm"
-              ><i class="fa fa-trash"></i
-            ></a>
-          {% endif %}
-        </td>
-        <td>
-          {% if current_user.is_authenticated %}
-            {% if current_user.is_admin %}
-              {% if not newsletter_email.sent %}
-                <a
-                  href="{{ url_for('admin.send_newsletter', id=newsletter.LetterID) }}"
-                  class="btn btn-danger btn-sm"
-                  ><i class="fa fa-paper-plane"></i
-                ></a>
-              {% endif %}
-            {% endif %}
-          {% endif %}
-        </td>
-        <td>
-          <a
-            href="{{ url_for('admin.edit_newsletter') }}"
-            class="btn btn-danger btn-sm"
-            ><i class="fa fa-eye"></i
-          ></a>
-        </td>
-      </tr>
-      {% endfor %}
+    <tr class="table-light">
+      <td>
+        {% if newsletter.Sent == True %}
+        <i class="fa fa-check btn btn-success btn-xs"></i> {% else %}
+        <i class="fa fa-times btn btn-danger btn-xs"></i>
+        {% endif %}
+      </td>
+      <td>
+        <a href="#"><strong>{{ newsletter.Subject }}</strong></a>
+      </td>
+      <td>{{ newsletter.Date.strftime('%Y-%m-%d') }}</td>
+      <td>
+        {% if current_user.has_role('Admin') %}
+        <a
+          href="{{ url_for('admin.delete_newsletter', id=newsletter.LetterID) }}"
+          class="btn btn-danger btn-sm"
+          ><i class="fa fa-trash"></i
+        ></a>
+        {% endif %}
+      </td>
+      <td>
+        {% if current_user.has_role('Staff') %}{% if not newsletter.Sent == True
+        %}
+        <a
+          href="{{ url_for('admin.send_newsletter', id=newsletter.LetterID) }}"
+          class="btn btn-danger btn-sm"
+          ><i class="fa fa-paper-plane"></i></a
+        >{% endif %} {% endif %} {% if current_user.has_role('Admin') %}
+        <a
+          href="{{ url_for('admin.send_newsletter', id=newsletter.LetterID) }}"
+          class="btn btn-danger btn-sm"
+          ><i class="fa fa-paper-plane"></i
+        ></a>
+        {% endif %}
+      </td>
+      <td>
+        <a
+          href="{{ url_for('admin.edit_newsletter') }}"
+          class="btn btn-danger btn-sm"
+          ><i class="fa fa-eye"></i
+        ></a>
+      </td>
+    </tr>
+    {% endfor %}
   </tbody>
-</table>
-
 </table>
 {% endblock %} {% block scripts %}
 <script>
