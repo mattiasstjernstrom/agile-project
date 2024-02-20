@@ -2,6 +2,7 @@ from flask import Flask
 
 from flask_migrate import Migrate, upgrade
 from flask_login import current_user
+from flask_mail import Mail
 from flask_security import Security
 
 
@@ -15,10 +16,13 @@ from models import db, seedData, user_datastore, Category
 app = Flask(__name__)
 app.config.from_object("config.ConfigDebug")
 
+mail = Mail(app)
 db.app = app
 db.init_app(app)
 migrate = Migrate(app, db)
 security = Security(app, user_datastore)
+
+mail.init_app(app)
 # user_manager.app = app
 # user_manager.init_app(app,db,User)
 
@@ -46,6 +50,6 @@ def context_processor():
 
 if __name__ == "__main__":
     with app.app_context():
-        upgrade()
+        # upgrade()
         seedData(security)
-        app.run(debug=True)
+        app.run(debug=True, port=5500)

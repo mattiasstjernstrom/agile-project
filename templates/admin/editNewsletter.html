@@ -1,17 +1,16 @@
 {% extends "baseTemplate.html" %} {% block title %} Newsletter {% endblock %} {%
 from "security/_macros.html" import render_field_with_errors, render_field %}
 {%block maincontent%}
-<h1>Write Newsletter</h1>
+<h1>Edit Newsletter</h1>
 <p>
   <a href="{{ url_for('admin.manage_newsletter') }}"
-    ><i class="fa fa-chevron-left"></i>Manage Newsletter</a
-  >
+    ><i class="fa fa-chevron-left"></i>Manage Newsletter</a>
 </p>
 
 <form action="write-newsletter" method="post">
   {{ write_newsletter.csrf_token }}
+  <label for="subject">Subject</label>
   <div class="form-group">
-    <label for="subject">Subject</label>
     {{ write_newsletter.subject(required='required') }}
   </div>
   <div class="form-group">

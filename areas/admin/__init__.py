@@ -1,8 +1,17 @@
+import datetime as dt
+
 from flask import Blueprint, render_template, request, redirect
 from flask_security import roles_accepted
+from flask_mail import Message
 
-from forms import DeleteNewsletterEmailForm
-from models import NewsletterEmails, db
+from forms import (
+    DeleteNewsletterEmailForm,
+    WriteNewsletterForm,
+    SubscribeNewsletterForm,
+)
+from models import NewsletterEmails, Newsletter, db
+from areas.products.services import user_is_subscribed
+from extensions import mail  # Förbreedd för att kunna skicka mail
 
 adminBluePrint = Blueprint("admin", __name__)
 
@@ -21,13 +30,66 @@ def manage_newsletter():
         "admin/manageNewsletter.html",
         values=NewsletterEmails.query.all(),
         form_delete=form_delete,
+        newsletters=Newsletter.query.all(),
     )
 
 
 @adminBluePrint.route("/write-newsletter", methods=["GET", "POST"])
 @roles_accepted("Admin", "Staff")
 def write_newsletter():
-    return render_template("admin/writeNewsletter.html")
+    write_newsletter = WriteNewsletterForm(request.form)
+    if write_newsletter.validate():
+        subject = write_newsletter.subject.data
+        content = write_newsletter.content.data
+        date = dt.datetime.now()
+        sent = False
+        newsletter = Newsletter(Subject=subject, Content=content, Date=date, Sent=sent)
+        db.session.add(newsletter)
+        db.session.commit()
+        return redirect("/admin/manage-newsletter")
+    return render_template(
+        "admin/writeNewsletter.html", write_newsletter=write_newsletter
+    )
+
+
+@adminBluePrint.route("/edit-newsletter", methods=["GET", "POST"])
+@roles_accepted("Admin", "Staff")
+def edit_newsletter():
+    write_newsletter = WriteNewsletterForm(request.form)
+    if write_newsletter.validate():
+        subject = write_newsletter.subject.data
+        content = write_newsletter.content.data
+        date = dt.datetime.now()
+        sent = False
+        newsletter = Newsletter(Subject=subject, Content=content, Date=date, Sent=sent)
+        db.session.add(newsletter)
+        db.session.commit()
+        return redirect("/admin/manage-newsletter")
+    return render_template(
+        "admin/editNewsletter.html", write_newsletter=write_newsletter
+    )
+
+
+@adminBluePrint.route("/add-email-newsletter", methods=["GET", "POST"])
+@roles_accepted("Admin", "Staff")
+def add_email_newsletter():
+    form_add_email = SubscribeNewsletterForm(request.form)
+    form_delete = DeleteNewsletterEmailForm()
+    if request.method == "POST":
+        form = SubscribeNewsletterForm(request.form)
+        if form.validate():
+            if user_is_subscribed(form.newsletter_email.data):
+                return "Email is already subscribed to the newsletter", 409
+            else:
+                new_sub = NewsletterEmails(Email=form.newsletter_email.data)
+                db.session.add(new_sub)
+                db.session.commit()
+    return render_template(
+        "admin/addEmailNewsletter.html",
+        values=NewsletterEmails.query.all(),
+        newsletter_form=form_add_email,
+        form_delete=form_delete,
+    )
 
 
 @adminBluePrint.route("/delete-email", methods=["POST"])
@@ -35,14 +97,52 @@ def write_newsletter():
 def delete_email():
     if request.method == "POST":
         form_delete = DeleteNewsletterEmailForm(request.form)
-        if form_delete.validate():  # Validerar formuläret inklusive email_id
+        if form_delete.validate():
             email_id = form_delete.email_id.data
             email_to_delete = NewsletterEmails.query.get(email_id)
             if email_to_delete:
                 db.session.delete(email_to_delete)
                 db.session.commit()
-                return redirect("/admin/manage-newsletter")
+                return redirect("/admin/add-email-newsletter")
         else:
             return "Email not found", 404
     else:
         return "Invalid form data", 400
+
+
+@adminBluePrint.route("/send-newsletter", methods=["GET", "POST"])
+@roles_accepted("Admin", "Staff")
+def send_newsletter():
+    send_newsletter = request.args.get("id")
+
+    newsletter_to_send = Newsletter.query.filter_by(LetterID=send_newsletter).first()
+    if newsletter_to_send:
+        newsletter_to_send.Sent = True
+        db.session.commit()
+        emails = NewsletterEmails.query.all()
+        for email in emails:
+            msg = Message(
+                newsletter_to_send.Subject,
+                sender="no-replay@stefanssupershop.com",
+                recipients=[email.Email],
+            )
+            msg.body = newsletter_to_send.Content
+            mail.send(msg)
+        return redirect("/admin/manage-newsletter")
+    else:
+        return "No newsletter to send (wrong id)", 404
+
+
+@adminBluePrint.route("/delete-newsletter", methods=["GET", "POST"])
+@roles_accepted("Admin", "Staff")
+def delete_newsletter():
+    delete_newsletter = request.args.get("id")
+    newsletter_to_delete = Newsletter.query.filter_by(
+        LetterID=delete_newsletter
+    ).first()
+    if newsletter_to_delete:
+        db.session.delete(newsletter_to_delete)
+        db.session.commit()
+        return redirect("/admin/manage-newsletter")
+    else:
+        return "No newsletter to delete (wrong id)", 404

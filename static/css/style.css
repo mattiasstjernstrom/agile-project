@@ -117,6 +117,12 @@ ol {
   color: #fff;
 }
 
+.btn-default {
+  background: #d10024;
+  color: white;
+  margin-bottom: 20px !important;
+
+}
 /*----------------------------*\
 	Inputs
 \*----------------------------*/
