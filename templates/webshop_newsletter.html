@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta viewport="width=device-width, initial-scale=1.0">
+    <title>Stefan's SuperShop Newsletter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: white ;
+            color: rgb(62, 61, 61);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 100%;
+            margin: 20px auto;
+            background: white ;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        h1, h2 {
+            font-weight: 700;
+            color:red;
+        }
+        .section img {
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .section img:hover {
+            transform: scale(1.05);
+        }
+        .section, .coupon, .social-links, .unsubscribe {
+            padding: 20px;
+            text-align: center;
+        }
+        .coupon {
+            background: linear-gradient(145deg, pink
+            , red);
+            color: white;
+            border-radius: 5px;
+            margin: 20px 0;
+            padding: 15px;
+        }
+        .coupon-code {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .social-links a {
+            margin: 0 15px;
+            color: red;
+            font-size: 30px;
+            transition: transform 0.3s ease;
+        }
+        .social-links a:hover {
+            transform: scale(1.2);
+        }
+        .unsubscribe a {
+            color: grey;
+            font-weight: bold;
+            text-decoration: none;
+            background-color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .unsubscribe a:hover {
+            background-color: white;
+        }
+        .thanks-message {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="thanks-message">
+        <p>Thank you for subscribing to Stefan's SuperShop!</p>
+    </div>
+    <div class="container">
+        <h1>Welcome to Stefan's SuperShop!</h1>
+        <p>Enjoy our latest offers on a wide selection of products.</p>
+
+        <div class="section">
+            <h2>Seafood Offers</h2>
+            <a href="http://127.0.0.1:5000/category/8">
+                <img src="https://picsum.photos/300/300?46" alt="Seafood Offers">
+            </a>
+            <p>Discover fresh and sustainable seafood options at great prices.</p>
+        </div>
+        
+        <div class="section">
+            <h2>Beverages</h2>
+            <a href="http://127.0.0.1:5000/category/1">
+            <img src="https://picsum.photos/300/300?1" alt="Beverages Offers">
+        </a>           
+            <p>Stay hydrated and refreshed with our wide range of drinks.</p>
+        </div>
+
+        <div class="section">
+            <h2>Condiments & Confections</h2>
+            <a href="http://127.0.0.1:5000/category/2">
+            <img src="https://picsum.photos/300/300?26" alt="Condiments & Confections Offers"> 
+          </a> 
+            <p>Enhance your meals with our gourmet condiments and sweet treats.</p>
+        </div>
+
+        <div class="section">
+            <h2>Dairy Products</h2>
+            <a href="http://127.0.0.1:5000/category/4">
+            <img src="https://picsum.photos/300/300?11" alt="Dairy Products Offers">  
+        </a>
+            <p>From artisan cheeses to fresh milk, find all your dairy needs.</p>
+        </div>
+
+        <div class="section">
+            <h2>Grains/Cereals</h2>
+            <a href="http://127.0.0.1:5000/category/5">
+            <img src="https://picsum.photos/300/300?52" alt="Grains/Cereals Offers"> 
+        </a>
+            <p>Stock up on wholesome grains and cereals for every meal.</p>
+        </div>
+
+        <div class="section">
+            <h2>Meat/Poultry</h2>
+            <a href="http://127.0.0.1:5000/category/6">
+            <img src="https://picsum.photos/300/300?54" alt="Meat/Poultry Offers"> 
+        </a>
+            <p>Quality meats sourced responsibly for the best flavors.</p>
+        </div>
+
+        <div class="section">
+            <h2>Produce</h2>
+            <a href="http://127.0.0.1:5000/category/7">
+            <img src="https://picsum.photos/300/300?7" alt="Produce Offers"> 
+        </a>
+            <p>Fresh fruits and vegetables to nourish your family.</p>
+        </div>
+
+        <div class="coupon">
+            <p>Special Offer!</p>
+            <div class="coupon-code">Use code <strong>STEFAN30</strong> for 30% off on your next purchase.</div>
+            <div class="validity">Valid for the next 30 days.</div>
+        </div>
+        <div class="social-links">
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://api.whatsapp.com/send?phone=yourphonenumber" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+
+        <div class="unsubscribe">
+            <p>To unsubscribe from our newsletter, please <a href="unsubscribe.html">click here</a>.</p>
+        </div>
+    </div>
+</body>
+</html>
