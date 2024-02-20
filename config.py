@@ -1,5 +1,5 @@
 class ConfigDebug:
-    SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://root:password@localhost/grupparbete"  # File-based SQL database
+    SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://root:password@localhost:3306/grupparbete"  # File-based SQL database
     SECRET_KEY = "SDFA11#"
 
     # Login Variables
