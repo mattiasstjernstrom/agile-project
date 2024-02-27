@@ -26,7 +26,11 @@
     </tr>
   </thead>
   <tbody>
-    {% for newsletter in newsletters %}
+    {% if newsletters|length == 0 %}
+    <tr>
+      <td colspan="6" class="text-center">No newsletter created yet!</td>
+    </tr>
+    {% endif %} {% for newsletter in newsletters %}
     <tr class="table-light">
       <td>
         {% if newsletter.Sent == True %}
@@ -35,7 +39,11 @@
         {% endif %}
       </td>
       <td>
-        <a href="#"><strong>{{ newsletter.Subject }}</strong></a>
+        <a
+          href="{{ url_for('admin.edit_newsletter', id=newsletter.LetterID) }}
+        "
+          ><strong>{{ newsletter.Subject }}</strong></a
+        >
       </td>
       <td>{{ newsletter.Date.strftime('%Y-%m-%d') }}</td>
       <td>

@@ -4,14 +4,22 @@ from "security/_macros.html" import render_field_with_errors, render_field %}
 <h1>Edit Newsletter</h1>
 <p>
   <a href="{{ url_for('admin.manage_newsletter') }}"
-    ><i class="fa fa-chevron-left"></i>Manage Newsletter</a>
+    ><i class="fa fa-chevron-left"></i>Manage Newsletter</a
+  >
 </p>
-
-<form action="write-newsletter" method="post">
-  {{ write_newsletter.csrf_token }}
+<form
+  action="{{ url_for('admin.edit_newsletter', id=newsletter_to_edit.LetterID) }}
+"
+  method="post">
+  {{ edit_newsletter.csrf_token }}
   <label for="subject">Subject</label>
   <div class="form-group">
-    {{ write_newsletter.subject(required='required') }}
+    <input
+      id="subject"
+      name="subject"
+      required="required"
+      type="text"
+      value="{{ newsletter_to_edit.Subject }}" />
   </div>
   <div class="form-group">
     <label for="content">Content</label>
@@ -20,7 +28,9 @@ from "security/_macros.html" import render_field_with_errors, render_field %}
       class="form-control"
       id="content"
       name="content"
-      required></textarea>
+      required>
+    {{ newsletter_to_edit.Content }}
+    </textarea>
   </div>
   <button type="submit" class="button">Save</button>
 </form>

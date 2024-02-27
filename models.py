@@ -55,9 +55,10 @@ class Newsletter(db.Model):
     __tablename__ = "Newsletter"
     LetterID = db.Column(db.Integer, primary_key=True)
     Subject = db.Column(db.String(255), nullable=False)
-    Content = db.Column(db.String(255), nullable=False)
+    Content = db.Column(db.String(10000), nullable=False)
     Date = db.Column(db.DateTime, unique=False, nullable=False)
     Sent = db.Column(db.Boolean, unique=False, nullable=False)
+    SentDate = db.Column(db.DateTime, unique=False, nullable=True)
 
 
 def seedData(security):

@@ -55,18 +55,19 @@ def write_newsletter():
 @adminBluePrint.route("/edit-newsletter", methods=["GET", "POST"])
 @roles_accepted("Admin", "Staff")
 def edit_newsletter():
-    write_newsletter = WriteNewsletterForm(request.form)
-    if write_newsletter.validate():
-        subject = write_newsletter.subject.data
-        content = write_newsletter.content.data
-        date = dt.datetime.now()
-        sent = False
-        newsletter = Newsletter(Subject=subject, Content=content, Date=date, Sent=sent)
-        db.session.add(newsletter)
+    edit_newsletter = WriteNewsletterForm(request.form)
+    print(edit_newsletter.subject.data, edit_newsletter.content.data)
+    if edit_newsletter.validate():
+        newsletter_to_edit = Newsletter.query.get(request.args.get("id"))
+        print(newsletter_to_edit)
+        newsletter_to_edit.Subject = edit_newsletter.subject.data
+        newsletter_to_edit.Content = edit_newsletter.content.data
         db.session.commit()
         return redirect("/admin/manage-newsletter")
     return render_template(
-        "admin/editNewsletter.html", write_newsletter=write_newsletter
+        "admin/editNewsletter.html",
+        edit_newsletter=edit_newsletter,
+        newsletter_to_edit=Newsletter.query.get(request.args.get("id")),
     )
 
 
@@ -118,6 +119,7 @@ def send_newsletter():
     newsletter_to_send = Newsletter.query.filter_by(LetterID=send_newsletter).first()
     if newsletter_to_send:
         newsletter_to_send.Sent = True
+        newsletter_to_send.Date = dt.datetime.now()
         db.session.commit()
         emails = NewsletterEmails.query.all()
         for email in emails:
