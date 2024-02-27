@@ -42,9 +42,16 @@ def context_processor():
 
     all_categories = Category().query.all()
 
+    # TODO: Replace with actual data:
+    user_specific_context = {
+        "cart_count": 0,
+        "wishlist_count": 0,
+    }
+
     return dict(
         is_subscribed_to_newsletter=is_subscribed_to_newsletter,
         all_categories=all_categories,
+        **user_specific_context
     )
 
 
