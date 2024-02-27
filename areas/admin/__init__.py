@@ -119,7 +119,7 @@ def send_newsletter():
     newsletter_to_send = Newsletter.query.filter_by(LetterID=send_newsletter).first()
     if newsletter_to_send:
         newsletter_to_send.Sent = True
-        newsletter_to_send.Date = dt.datetime.now()
+        newsletter_to_send.SentDate = dt.datetime.now()
         db.session.commit()
         emails = NewsletterEmails.query.all()
         for email in emails:
@@ -128,6 +128,12 @@ def send_newsletter():
                 sender="no-replay@stefanssupershop.com",
                 recipients=[email.Email],
             )
+            msg.html = render_template(
+                "newsletter/base.html", letter=newsletter_to_send
+            )
+            print(msg.html)
+
+            # Textbased fallback if the email client does not support html
             msg.body = newsletter_to_send.Content
             mail.send(msg)
         return redirect("/admin/manage-newsletter")
