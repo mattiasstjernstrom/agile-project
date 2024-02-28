@@ -269,13 +269,16 @@
 
             <div class="col-md-3 col-xs-6">
               <div class="footer">
-                <h3 class="footer-title">Categories</h3>
+                <h3 class="footer-title">Top Categories</h3>
                 <ul class="footer-links">
-                  <li><a href="#">Hot deals</a></li>
-                  <li><a href="#">Laptops</a></li>
-                  <li><a href="#">Smartphones</a></li>
-                  <li><a href="#">Cameras</a></li>
-                  <li><a href="#">Accessories</a></li>
+                  {% for Categories in top_categories %}
+                  <li>
+                    <a
+                      href="{{ url_for('product.category', id=Categories.CategoryID) }}"
+                      >{{ Categories.CategoryName }}</a
+                    >
+                  </li>
+                  {% endfor %}
                 </ul>
               </div>
             </div>
@@ -323,21 +326,31 @@
           <!-- row -->
           <div class="row">
             <div class="col-md-12 text-center">
-              <ul class="footer-payments">
+              <ul class="footer-payments" style="color: white">
                 <li>
-                  <a href="#"><i class="fa fa-cc-visa"></i></a>
+                  <a href="#"
+                    ><i class="fa fa-cc-visa" style="color: white"></i
+                  ></a>
                 </li>
                 <li>
-                  <a href="#"><i class="fa fa-credit-card"></i></a>
+                  <a href="#"
+                    ><i class="fa fa-credit-card" style="color: white"></i
+                  ></a>
                 </li>
                 <li>
-                  <a href="#"><i class="fa fa-cc-paypal"></i></a>
+                  <a href="#"
+                    ><i class="fa fa-cc-paypal" style="color: white"></i
+                  ></a>
                 </li>
                 <li>
-                  <a href="#"><i class="fa fa-cc-mastercard"></i></a>
+                  <a href="#"
+                    ><i class="fa fa-cc-mastercard" style="color: white"></i
+                  ></a>
                 </li>
                 <li>
-                  <a href="#"><i class="fa fa-cc-discover"></i></a>
+                  <a href="#"
+                    ><i class="fa fa-cc-discover" style="color: white"></i
+                  ></a>
                 </li>
                 <li>
                   <a href="#"><i class="fa fa-cc-amex"></i></a>

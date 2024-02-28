@@ -11,7 +11,7 @@ from forms import (
 )
 from models import NewsletterEmails, Newsletter, db
 from areas.products.services import user_is_subscribed
-from extensions import mail  # Förbreedd för att kunna skicka mail
+from extensions import mail
 
 adminBluePrint = Blueprint("admin", __name__)
 

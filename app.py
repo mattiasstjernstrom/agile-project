@@ -10,7 +10,7 @@ from areas.site.sitePages import siteBluePrint
 from areas.products import productBluePrint
 from areas.admin import adminBluePrint
 from areas.error import errorHandlersBluePrint
-from areas.products.services import user_is_subscribed
+from areas.products.services import user_is_subscribed, getTrendingCategories
 from models import db, seedData, user_datastore, Category
 
 app = Flask(__name__)
@@ -41,6 +41,7 @@ def context_processor():
         is_subscribed_to_newsletter = True
 
     all_categories = Category().query.all()
+    top_categories = getTrendingCategories(5)
 
     # TODO: Replace with actual data:
     user_specific_context = {
@@ -51,6 +52,7 @@ def context_processor():
     return dict(
         is_subscribed_to_newsletter=is_subscribed_to_newsletter,
         all_categories=all_categories,
+        top_categories=top_categories,
         **user_specific_context
     )
 
@@ -59,4 +61,4 @@ if __name__ == "__main__":
     with app.app_context():
         # upgrade()
         seedData(security)
-        app.run(debug=True, port=5500)
+        app.run(debug=True, port=5000)

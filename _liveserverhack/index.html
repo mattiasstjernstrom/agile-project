@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LiveServerHack</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        text-align: center;
+        max-width: 500px;
+        margin: 0 auto;
+        height: 100vh;
+        text-wrap: pretty;
+      }
+
+      h2 {
+        color: darkred;
+        font-style: italic;
+        margin: 80px 0;
+      }
+      p {
+        padding: 30px;
+        background-color: floralwhite;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+      }
+
+      button {
+        display: none;
+        margin: 80px auto;
+
+        padding: 10px 15px;
+        border-radius: 6px;
+        border: 1px darkgreen;
+        background-color: lightgreen;
+        color: darkgreen;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: forestgreen;
+        color: white;
+      }
+
+      code {
+        background-color: indianred;
+        color: white;
+      }
+      code.link {
+        background-color: darkred;
+        color: white;
+      }
+      small {
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>_LiveServerHack:</h1>
+    <h2>Live Server: Offline</h2>
+
+    <p>
+      Download
+      <a href="https://github.com/ritwickdey/live-server-web-extension"
+        >Live Server Web Extension</a
+      >
+      to get this to work.<br />
+      Paste your WSGI-server to "Actual Server Adress"<br />
+      Paste this address to "Live Server address":<br />
+      <code class="link">http://127.0.0.1:5500/_liveserverhack/</code><br />
+      Paste WSGI-server-URL in <code>Live Server Web Extension</code>
+    </p>
+    <button onclick="window.close()">Close This Tab</button>
+
+    <small>Hack invented by <a href="https://mehow.se">mehow</a></small>
+
+    <script>
+      let interval = setInterval(function checkOnline() {
+        console.log("Checking");
+        fetch("http://127.0.0.1:5500/_liveserverhack/check.hack")
+          .then((response) => {
+            if (response.ok) {
+              document.querySelector("h2").innerHTML = "Live Server: Online";
+              document.querySelector("h2").style.color = "green";
+              document.querySelector("h2").style.fontStyle = "normal";
+              document.querySelector("h2").style.textDecoration = "underline";
+              document.querySelector("h2").style.textDecorationColor =
+                "darkgreen";
+              document.querySelector("h2").style.textDecorationStyle = "wavy";
+              document.querySelector("h2").style.textDecorationThickness =
+                "2px";
+              document.querySelector("h2").style.textDecorationSkipInk = "none";
+              document.querySelector("h2").style.textDecorationLine =
+                "underline wavy darkgreen";
+              document.querySelector("button").style.display = "block";
+            } else {
+              document.querySelector("h2").innerHTML = "Live Server: Offline";
+              document.querySelector("h2").removeAttribute("style");
+              document.querySelector("button").style.display = "none";
+            }
+          })
+          .catch((error) => {
+            document.querySelector("h2").innerHTML = "Live Server: Offline";
+            document.querySelector("h2").removeAttribute("style");
+            document.querySelector("button").style.display = "none";
+          });
+      }, 500);
+    </script>
+  </body>
+</html>

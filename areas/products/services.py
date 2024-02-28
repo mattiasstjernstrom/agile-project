@@ -2,10 +2,10 @@ from flask import jsonify
 from models import db, Category, Product, NewsletterEmails
 
 
-def getTrendingCategories():
+def getTrendingCategories(count=3):
     return (
         Category.query.order_by(Category.CategoryID.desc())
-        .paginate(page=1, per_page=3, error_out=False)
+        .paginate(page=1, per_page=count, error_out=False)
         .items
     )
 
@@ -20,7 +20,8 @@ def getProduct(id):
 
 def getTrendingProducts():
     return (
-        Product.query.order_by(Product.ProductID.desc())
+        Product.query.filter(Product.Discontinued == False)
+        .order_by(Product.ProductID.desc())
         .paginate(page=1, per_page=9, error_out=False)
         .items
     )

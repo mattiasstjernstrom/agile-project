@@ -1,2 +1,28 @@
-{% extends "baseTemplate.html" %} {% block title %}Start{% endblock %} {% block
-maincontent %} {{ product.ProductName }} {% endblock %}
+{% extends "baseTemplate.html" %} {% block title %} {{ product.ProductName }}{%
+endblock %} {% block maincontent %}
+
+<div class="information">
+  <img
+    src="https://picsum.photos/300/300?{{ product.ProductID }}"
+    alt="cookies"
+    class="hero-image" />
+  <div class="name">
+    <a href="{{ url_for('product.product', id=product.ProductID) }}"
+      >{{ product.ProductName }}</a
+    >
+  </div>
+  <div class="store">Sample Text</div>
+  <div class="store">Unit: {{ product.QuantityPerUnit }}</div>
+  <div class="store">Unit Price: ${{ product.UnitPrice }}</div>
+  <a
+    href="{{ url_for('product.product', id=product.ProductID) }}
+            "
+    class="button"
+    >Purchase Product</a
+  >
+  <a href="#" class="button-small">
+    <i class="fa fa-heart"></i>
+  </a>
+</div>
+
+{% endblock %}

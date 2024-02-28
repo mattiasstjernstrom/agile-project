@@ -50,14 +50,23 @@ maincontent %}
             src="https://picsum.photos/300/300?{{ product.ProductID }}"
             alt="cookies"
             class="hero-image" />
-          <div class="price">
-            $
-            <div>{{ product.UnitPrice }}</div>
-          </div>
+          <div class="price">${{ "%.2f"|format(product.UnitPrice) }}</div>
           <div class="information">
-            <div class="name">{{ product.ProductName }}</div>
+            <div class="name">
+              <a href="{{ url_for('product.product', id=product.ProductID) }}"
+                >{{ product.ProductName }}</a
+              >
+            </div>
             <div class="store">Example Text</div>
-            <a href="#" class="button">Purchase Product</a>
+            <a
+              href="{{ url_for('product.product', id=product.ProductID) }}
+            "
+              class="button"
+              >Purchase Product</a
+            >
+            <a href="#" class="button-small">
+              <i class="fa fa-heart"></i>
+            </a>
           </div>
           <!-- end information -->
         </div>
