@@ -45,8 +45,8 @@ def context_processor():
 
     # TODO: Replace with actual data:
     user_specific_context = {
-        "cart_count": 0,
-        "wishlist_count": 0,
+        "cart_count": 1,
+        "wishlist_count": 1,
     }
 
     return dict(
